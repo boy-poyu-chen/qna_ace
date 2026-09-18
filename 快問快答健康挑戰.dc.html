@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ant-design-pro-design-system-c228cbeb-31bd-461e-885e-c6a1590fd7cc/colors_and_type.css">
+<link rel="stylesheet" href="_ds/ant-design-pro-design-system-c228cbeb-31bd-461e-885e-c6a1590fd7cc/ui_kits/admin-console/kit.css">
+<link rel="stylesheet" href="_ds/ant-design-pro-design-system-c228cbeb-31bd-461e-885e-c6a1590fd7cc/styles.css">
+<script src="_ds/ant-design-pro-design-system-c228cbeb-31bd-461e-885e-c6a1590fd7cc/_ds_bundle.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+  body { margin: 0; background: #eceff2; }
+  a { color: #7c4dff; text-decoration: none; }
+  a:hover { color: #9d78ff; }
+  @keyframes popIn { 0% { transform: scale(0.5); opacity: 0 } 65% { transform: scale(1.08); opacity: 1 } 100% { transform: scale(1) } }
+  @keyframes riseIn { 0% { transform: translateY(10px); opacity: 0 } 100% { transform: translateY(0); opacity: 1 } }
+  @keyframes pulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.05) } }
+  @keyframes shake { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+</style>
+</helmet>
+
+<div style="min-height: 100dvh; background: #f4f2fb; font-family: 'Noto Sans TC', 'Alibaba Sans', -apple-system, 'PingFang TC', system-ui, sans-serif;">
+    <div style="min-height: 100dvh; max-width: 480px; margin: 0 auto; box-sizing: border-box; padding: calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom)); background: #f4f2fb; display: flex; flex-direction: column; color: #2b2833;">
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; flex: 1; min-height: 0; gap: 12px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-size: 22px; font-weight: 700; letter-spacing: 0.5px;">快問快答</div>
+            <div style="background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 9999px;">今日剩餘 {{ remaining }} 題</div>
+          </div>
+
+          <div style="border-radius: 18px; background: linear-gradient(120deg, #7c4dff 0%, #9a71ff 60%, #b79bff 100%); padding: 18px 20px; box-shadow: 0 8px 20px rgba(124,77,255,0.25); display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="font-size: 13px; font-weight: 500; color: #fff;">健康行動值</div>
+              <div style="display: flex; align-items: baseline; gap: 4px;">
+                <span style="font-size: 38px; font-weight: 700; line-height: 1.1; color: #fff;">{{ wallet }}</span>
+                <span style="font-size: 14px; font-weight: 500; color: #fff;">點</span>
+              </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+              <div style="font-size: 12px; font-weight: 500; color: #fff;">連續達成</div>
+              <div style="font-size: 22px; font-weight: 700; color: #fff; line-height: 1.1;">6 天</div>
+            </div>
+          </div>
+
+          <div style="background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(80,50,160,0.06); padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="font-size: 15px; font-weight: 700;">玩法</div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</span>
+                <span style="font-size: 14px; font-weight: 500; color: #6b6680; line-height: 1.6;">每天只能答 {{ dailyLimit }} 題是非題，全對就完賽。</span>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</span>
+                <span style="font-size: 14px; font-weight: 500; color: #6b6680; line-height: 1.6;">每題只有 {{ seconds }} 秒，時間到就算答錯。</span>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</span>
+                <span style="font-size: 14px; font-weight: 500; color: #6b6680; line-height: 1.6;">{{ wrongRuleText }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(80,50,160,0.06); padding: 16px 20px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+              <div style="font-size: 15px; font-weight: 700;">本週挑戰</div>
+              <div style="font-size: 13px; font-weight: 500; color: #6b6680;">4 / 7 天</div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">一</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #7c4dff; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">二</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #7c4dff; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">三</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #7c4dff; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">四</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #7c4dff; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">五</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">今</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">六</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #f0eef7;"></span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <span style="font-size: 11px; font-weight: 500; color: #6b6680;">日</span>
+                <span style="width: 26px; height: 26px; border-radius: 50%; background: #f0eef7;"></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex: 1;"></div>
+          <button type="button" onClick="{{ start }}" style="height: 52px; border: none; border-radius: 14px; background: #7c4dff; color: #fff; font-size: 17px; font-weight: 700; letter-spacing: 2px; cursor: pointer; font-family: inherit; box-shadow: 0 6px 16px rgba(124,77,255,0.28); transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);" style-hover="background: #8f66ff" style-active="background: #6d3fe0">開始挑戰</button>
+          <div style="text-align: center; font-size: 12px; font-weight: 500; color: #6b6680;">每日 00:00 重置題數</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isReady }}">
+        <div style="flex: 1; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;">
+          <div style="font-size: 15px; font-weight: 500; color: #6b6680; letter-spacing: 2px;">準 備 好 了 嗎</div>
+          <div key="{{ readyNum }}" style="width: 196px; height: 196px; border-radius: 50%; background: linear-gradient(140deg, #7c4dff 0%, #a97cff 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 34px rgba(124,77,255,0.32); animation: popIn 0.4s cubic-bezier(0.215,0.61,0.355,1);">
+            <span style="font-size: 112px; font-weight: 700; color: #fff; line-height: 1;">{{ readyNum }}</span>
+          </div>
+          <div style="background: #fff; border-radius: 12px; padding: 12px 22px; box-shadow: 0 2px 10px rgba(80,50,160,0.06); font-size: 13px; font-weight: 500; color: #6b6680;">共 {{ dailyLimit }} 題 · 每題 {{ seconds }} 秒</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isQuiz }}">
+        <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-size: 13px; font-weight: 500; color: #6b6680;">第 <span style="font-size: 17px; font-weight: 700; color: #2b2833;">{{ qNum }}</span> / {{ dailyLimit }} 題</div>
+            <div style="background: #ede7ff; color: #6d3fe0; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 9999px;">本局 {{ points }} 點</div>
+          </div>
+
+          <div style="display: flex; gap: 4px;">
+            <sc-for list="{{ dots }}" as="dot" hint-placeholder-count="10">
+              <sc-if value="{{ dot.correct }}" hint-placeholder-val="{{ true }}">
+                <div style="height: 5px; flex: 1; border-radius: 3px; background: #7c4dff;"></div>
+              </sc-if>
+              <sc-if value="{{ dot.current }}">
+                <div style="height: 5px; flex: 1; border-radius: 3px; background: #c4aaff;"></div>
+              </sc-if>
+              <sc-if value="{{ dot.pending }}">
+                <div style="height: 5px; flex: 1; border-radius: 3px; background: #e6e2f2;"></div>
+              </sc-if>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; justify-content: center; padding: 2px 0;">
+            <sc-if value="{{ calm }}" hint-placeholder-val="{{ true }}">
+              <div style="position: relative; width: 96px; height: 96px;">
+                <svg width="96" height="96" viewBox="0 0 120 120" style="position: absolute; inset: 0;">
+                  <circle cx="60" cy="60" r="52" fill="#fff" stroke="#efeaff" stroke-width="10"></circle>
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#7c4dff" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="{{ ringOffset }}" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset 0.2s linear"></circle>
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 36px; font-weight: 700; line-height: 1;">{{ secLeft }}</span>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ urgent }}">
+              <div style="position: relative; width: 96px; height: 96px; animation: pulse 0.6s ease-in-out infinite;">
+                <svg width="96" height="96" viewBox="0 0 120 120" style="position: absolute; inset: 0;">
+                  <circle cx="60" cy="60" r="52" fill="#fff" stroke="#ffe7e7" stroke-width="10"></circle>
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#ff4d4f" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="{{ ringOffset }}" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset 0.2s linear"></circle>
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 36px; font-weight: 700; line-height: 1; color: #cf1322;">{{ secLeft }}</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(80,50,160,0.06); padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+            <div style="align-self: flex-start; background: #f5f2ff; color: #6d3fe0; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 10px; border-radius: 8px;">是非題</div>
+            <div style="font-size: 20px; font-weight: 700; line-height: 1.55; text-wrap: pretty;">{{ qText }}</div>
+          </div>
+
+          <sc-if value="{{ showCorrect }}">
+            <div style="background: #f0faf2; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; animation: riseIn 0.2s ease-out;">
+              <span style="font-size: 15px; font-weight: 700; color: #1e7d45;">答對！＋{{ pointsPerCorrect }} 點</span>
+              <span style="font-size: 12px; font-weight: 500; color: #1e7d45;">{{ explain }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showWrong }}">
+            <div style="background: #fdefee; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; animation: shake 0.3s ease-in-out;">
+              <span style="font-size: 15px; font-weight: 700; color: #cf1322;">{{ wrongLabel }}</span>
+              <span style="font-size: 12px; font-weight: 500; color: #a1525a;">正解 {{ answerLabel }}</span>
+            </div>
+          </sc-if>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <button type="button" onClick="{{ answerTrue }}" style="height: 162px; border: none; background: #7c4dff; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; font-family: inherit; box-shadow: 0 8px 18px rgba(124,77,255,0.26); transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);" style-hover="background: #8f66ff" style-active="transform: scale(0.97)">
+              <span style="font-size: 78px; line-height: 0.9; color: #fff; font-weight: 400;">◯</span>
+              <span style="font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 4px;">是</span>
+            </button>
+            <button type="button" onClick="{{ answerFalse }}" style="height: 162px; border: 2px solid #e0d8ff; background: #fff; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; font-family: inherit; box-shadow: 0 2px 10px rgba(80,50,160,0.06); transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);" style-hover="background: #f7f4ff" style-active="transform: scale(0.97)">
+              <span style="font-size: 68px; line-height: 0.95; color: #6d3fe0; font-weight: 400;">✕</span>
+              <span style="font-size: 18px; font-weight: 700; color: #2b2833; letter-spacing: 4px;">非</span>
+            </button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isResult }}">
+        <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
+            <div style="background: {{ resultColor }}; color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 1px; padding: 7px 18px; border-radius: 9999px;">{{ resultTitle }}</div>
+            <div style="display: flex; align-items: baseline; gap: 6px; animation: popIn 0.4s cubic-bezier(0.215,0.61,0.355,1);">
+              <span style="font-size: 82px; font-weight: 700; line-height: 1; color: #7c4dff;">{{ claimable }}</span>
+              <span style="font-size: 20px; font-weight: 700;">點</span>
+            </div>
+            <div style="font-size: 13px; font-weight: 500; color: #6b6680;">{{ resultSub }}</div>
+          </div>
+
+          <div style="background: #fff; border-radius: 16px; box-shadow: 0 2px 10px rgba(80,50,160,0.06); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; white-space: nowrap;">
+            <span style="font-size: 13px; font-weight: 500; color: #6b6680;">答對題數</span>
+            <span style="font-size: 15px; font-weight: 700;">{{ points }} / {{ dailyLimit }} 題</span>
+          </div>
+
+          <button type="button" onClick="{{ claim }}" style="height: 52px; border: none; border-radius: 14px; background: #7c4dff; color: #fff; font-size: 17px; font-weight: 700; letter-spacing: 1px; cursor: pointer; font-family: inherit; box-shadow: 0 6px 16px rgba(124,77,255,0.28); transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);" style-hover="background: #8f66ff" style-active="background: #6d3fe0">領取 {{ claimable }} 點</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isLocked }}">
+        <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+            <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(140deg, #7c4dff 0%, #a97cff 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(124,77,255,0.28);">
+              <span style="font-size: 30px; color: #fff; line-height: 1;">✓</span>
+            </div>
+            <div style="font-size: 20px; font-weight: 700;">今日挑戰完成</div>
+            <div style="font-size: 13px; font-weight: 500; color: #6b6680; text-align: center; line-height: 1.7;">行動值已存進獎勵中心<br>明天 00:00 再回來答題</div>
+            <div style="background: linear-gradient(120deg, #7c4dff 0%, #9a71ff 60%, #b79bff 100%); border-radius: 16px; padding: 16px 38px; display: flex; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 8px 20px rgba(124,77,255,0.25);">
+              <div style="font-size: 12px; font-weight: 500; color: #fff;">健康行動值</div>
+              <div style="display: flex; align-items: baseline; gap: 4px;">
+                <span style="font-size: 34px; font-weight: 700; color: #fff; line-height: 1.2;">{{ wallet }}</span>
+                <span style="font-size: 13px; font-weight: 500; color: #fff;">點</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" onClick="{{ reset }}" style="height: 52px; border: 2px solid #e0d8ff; border-radius: 14px; background: #fff; color: #6d3fe0; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);" style-hover="background: #f7f4ff" style-active="background: #ede7ff">重新示範（Demo）</button>
+        </div>
+      </sc-if>
+
+    </div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#7c4dff"></rect><text x="50" y="62" font-size="38" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">OX</text></svg></template>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:880},&quot;dailyLimit&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:3,&quot;max&quot;:10,&quot;unit&quot;:&quot;題&quot;,&quot;section&quot;:&quot;遊戲規則&quot;},&quot;wrongPolicy&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;保留全部&quot;,&quot;options&quot;:[&quot;保留全部&quot;,&quot;打五折&quot;,&quot;全部歸零&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;遊戲規則&quot;}}">
+const QUESTIONS = [
+  { t: "每天喝足 2000 毫升白開水，有助於維持代謝與排毒。", a: true, e: "水分很重要" },
+  { t: "運動後 30 分鐘內補充蛋白質，對肌肉修復有幫助。", a: true, e: "黃金補充期" },
+  { t: "只要有運動，熬夜對健康就沒有影響。", a: false, e: "睡眠無法被取代" },
+  { t: "無糖茶飲和白開水一樣，喝多少都不影響睡眠。", a: false, e: "茶含咖啡因" },
+  { t: "一天走滿 8000 步，已達成多數成人的日常活動量建議。", a: true, e: "8000 步是好目標" },
+  { t: "水果含天然糖分，所以吃再多都不會影響血糖。", a: false, e: "份量仍需控制" },
+  { t: "早餐搭配蛋白質，比只吃麵包更能延長飽足感。", a: true, e: "蛋白質耐餓" },
+  { t: "睡前滑手機的藍光，會影響入睡的褪黑激素分泌。", a: true, e: "睡前放下手機" },
+  { t: "泡麵只要不喝湯，鈉含量就完全不必擔心。", a: false, e: "麵體也含鈉" },
+  { t: "久坐每小時起身活動 3 分鐘，有助於降低代謝風險。", a: true, e: "起身動一動" },
+];
+
+// One heartbeat per round, always created inside a user-event call stack, and
+// never re-created from inside a timer callback (the host starves those).
+// Phase moments live here as absolute timestamps so they survive remounts;
+// CLOCK.inst is re-pointed at the live instance on every render.
+const CLOCK = { beats: [], inst: null, readyAt: 0, deadline: 0, pendingAt: 0, action: null };
+
+class Component extends DCLogic {
+  state = {
+    screen: "home", readyNum: 3, qIndex: 0, left: 10000,
+    points: 0, feedback: null, wallet: 415, remaining: 10, fit: 1,
+  };
+
+  get secondsTotal() { return 10000; }
+  get limit() { return Math.min(this.props.dailyLimit ?? 10, QUESTIONS.length); }
+  get per() { return 1; }
+
+  componentDidMount() { CLOCK.inst = this; }
+
+  // Call ONLY from a click handler. Every wake-up is pre-scheduled here, in the
+  // interaction's own call stack — timers this host hands out from inside another
+  // timer's callback get starved, so chaining or re-arming later is unreliable.
+  beat(spanMs) {
+    this.clearBeats();
+    const span = spanMs || this.secondsTotal + 8000;
+    for (let t = 200; t <= span; t += 200) {
+      CLOCK.beats.push(setTimeout(() => { const c = CLOCK.inst; if (c) c.onTick(); }, t));
+    }
+  }
+
+  clearBeats() {
+    CLOCK.beats.forEach(clearTimeout);
+    CLOCK.beats = [];
+  }
+
+  stopBeat() {
+    this.clearBeats();
+    CLOCK.readyAt = 0; CLOCK.deadline = 0; CLOCK.pendingAt = 0; CLOCK.action = null;
+  }
+
+  after(ms, action) { CLOCK.pendingAt = Date.now() + ms; CLOCK.action = action; }
+
+  onTick() {
+    const now = Date.now();
+    if (CLOCK.pendingAt && now >= CLOCK.pendingAt) {
+      const action = CLOCK.action;
+      CLOCK.pendingAt = 0; CLOCK.action = null;
+      if (action === "finish") this.finish();
+      else if (action === "next") this.nextQuestion();
+      return;
+    }
+    if (this.state.screen === "ready" && CLOCK.readyAt && now >= CLOCK.readyAt) {
+      const n = this.state.readyNum - 1;
+      if (n > 0) { CLOCK.readyAt = now + 800; this.setState({ readyNum: n }); return; }
+      CLOCK.readyAt = 0;
+      CLOCK.deadline = now + this.secondsTotal;
+      this.setState({ screen: "quiz", left: this.secondsTotal });
+      return;
+    }
+    if (this.state.screen === "quiz" && !this.state.feedback && CLOCK.deadline) {
+      const left = CLOCK.deadline - now;
+      if (left <= 0) {
+        CLOCK.deadline = 0;
+        this.setState({ left: 0, feedback: "timeout" });
+        this.after(1300, "finish");
+        return;
+      }
+      this.setState({ left });
+    }
+  }
+
+  start = () => {
+    this.stopBeat();
+    CLOCK.inst = this;
+    CLOCK.readyAt = Date.now() + 800;
+    this.setState({ screen: "ready", readyNum: 3, qIndex: 0, points: 0, feedback: null, left: this.secondsTotal });
+    this.beat(2600 + this.secondsTotal + 4000);
+  };
+
+  answer = (val) => {
+    if (this.state.feedback) return;
+    const q = QUESTIONS[this.state.qIndex];
+    CLOCK.inst = this;
+    CLOCK.deadline = 0;
+    if (q.a !== val) {
+      this.setState({ feedback: "wrong" });
+      this.after(1400, "finish");
+      this.beat();
+      return;
+    }
+    this.setState({ feedback: "correct", points: this.state.points + 1 });
+    this.after(900, "next");
+    this.beat();
+  };
+
+  nextQuestion() {
+    if (this.state.points >= this.limit) { this.finish(); return; }
+    CLOCK.deadline = Date.now() + this.secondsTotal;
+    this.setState({ qIndex: this.state.qIndex + 1, feedback: null, left: this.secondsTotal });
+  }
+
+  finish() { this.stopBeat(); this.setState({ screen: "result" }); }
+
+  claim = () => {
+    this.setState({
+      screen: "locked",
+      wallet: this.state.wallet + this.claimablePoints(),
+      remaining: Math.max(0, this.limit - this.state.points),
+    });
+  };
+
+  reset = () => {
+    this.stopBeat();
+    this.setState({ screen: "home", points: 0, qIndex: 0, feedback: null, remaining: this.limit });
+  };
+
+  claimablePoints() {
+    const raw = this.state.points * this.per;
+    const policy = this.props.wrongPolicy ?? "保留全部";
+    const cleared = this.state.points >= this.limit;
+    if (cleared || this.state.feedback === "correct") return raw;
+    if (policy === "打五折") return Math.floor(raw / 2);
+    if (policy === "全部歸零") return 0;
+    return raw;
+  }
+
+  renderVals() {
+    CLOCK.inst = this;
+    const s = this.state, limit = this.limit;
+    const q = QUESTIONS[Math.min(s.qIndex, QUESTIONS.length - 1)];
+    const secLeft = Math.ceil(s.left / 1000);
+    const ratio = Math.max(0, Math.min(1, s.left / this.secondsTotal));
+    const cleared = s.points >= limit;
+    const policy = this.props.wrongPolicy ?? "保留全部";
+    const dots = Array.from({ length: limit }, (_, i) => ({
+      correct: i < s.points,
+      current: i === s.points && s.screen === "quiz",
+      pending: i > s.points || (i === s.points && s.screen !== "quiz"),
+    }));
+    return {
+      isHome: s.screen === "home", isReady: s.screen === "ready",
+      isQuiz: s.screen === "quiz", isResult: s.screen === "result",
+      isLocked: s.screen === "locked",
+      readyNum: s.readyNum,
+      qNum: Math.min(s.qIndex + 1, limit), qText: q.t,
+      explain: q.e, answerLabel: q.a ? "◯ 是" : "✕ 非",
+      secLeft, ringOffset: (326.7 * (1 - ratio)).toFixed(1),
+      calm: s.screen === "quiz" && secLeft > 4,
+      urgent: s.screen === "quiz" && secLeft <= 4,
+      points: s.points, dots, dailyLimit: limit, seconds: 10,
+      pointsPerCorrect: this.per, wallet: s.wallet, remaining: s.remaining,
+      showCorrect: s.feedback === "correct", showWrong: s.feedback === "wrong" || s.feedback === "timeout",
+      wrongLabel: s.feedback === "timeout" ? "時間到！" : "答錯了！",
+      claimable: this.claimablePoints(), walletAfter: s.wallet + this.claimablePoints(),
+      resultColor: cleared ? "#7c4dff" : "#cf1322",
+      resultTitle: cleared ? "十題全對 完賽！" : "挑戰結束",
+      resultSub: cleared ? "太強了，今日滿分完成" : "明天再來挑戰滿分",
+      wrongRuleShort: cleared ? "全對完賽" : policy,
+      wrongRuleText: policy === "全部歸零"
+        ? "答錯即結束，本局行動值不予領取。"
+        : policy === "打五折"
+          ? "答錯即結束，已累積行動值可領一半。"
+          : "答錯即結束，已累積的行動值仍可領。",
+      start: this.start, claim: this.claim, reset: this.reset,
+      answerTrue: () => this.answer(true), answerFalse: () => this.answer(false),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

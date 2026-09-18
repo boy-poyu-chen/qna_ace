@@ -1,0 +1,6 @@
+/* ============================================================
+   Ant Design Pro — design system entry stylesheet.
+   Link this ONE file to get the whole system.
+   ============================================================ */
+@import url("colors_and_type.css");
+@import url("ui_kits/admin-console/kit.css");
